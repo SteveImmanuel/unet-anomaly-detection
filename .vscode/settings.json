@@ -1,0 +1,10 @@
+{
+    "python.pythonPath": "C:\\Users\\Steve\\.conda\\envs\\ml\\python.exe",
+    "python.linting.pylintEnabled": true,
+    "python.linting.enabled": true,
+    "python.formatting.provider": "yapf",
+    "python.formatting.yapfArgs": [
+        "--style={column_limit=100}"
+    ],
+    "editor.formatOnSave": true
+}
