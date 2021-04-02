@@ -1,4 +1,5 @@
 import matplotlib.pyplot as plt
+
 from typing import Dict, Tuple
 from matplotlib.animation import FuncAnimation
 
@@ -92,7 +93,7 @@ class ResultVideoGenerator:
             total_frames = len(item)
             self.parameters += [(key, i, total_frames) for i in range(total_frames)]
 
-    def update(self, param: Tuple(str, int, int)):
+    def update(self, param: Tuple[str, int, int]):
         video_key, index, total_frames = param
 
         if self.current_video != video_key:

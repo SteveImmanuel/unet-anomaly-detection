@@ -1,7 +1,9 @@
 import numpy as np
+import os
+
 from PIL import Image
-from typing import Tuple
-from nptyping import ndarray
+from typing import Tuple, List
+from nptyping import NDArray
 from tensorflow.keras.utils import Sequence
 
 ALLOWED_EXT = ['.tif', '.jpg', '.jpeg', '.png']
@@ -10,7 +12,7 @@ ALLOWED_EXT = ['.tif', '.jpg', '.jpeg', '.png']
 class DataGenerator(Sequence):
     def __init__(self,
                  path: str,
-                 dim: Tuple(int, int, int) = (128, 128, 1),
+                 dim: Tuple[int, int, int] = (128, 128, 1),
                  seq_len: int = 5,
                  batch_size: int = 15,
                  shuffle: bool = True):
@@ -50,7 +52,7 @@ class DataGenerator(Sequence):
 
         return all_batch_ids
 
-    def __get_frame_sequences(self, all_frames: list[ndarray], optf_frames: list[ndarray]):
+    def __get_frame_sequences(self, all_frames: List[NDArray], optf_frames: List[NDArray]):
         sequences = []
         pred_targets = []
         optf_targets = []
