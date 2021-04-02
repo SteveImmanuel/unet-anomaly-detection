@@ -1,0 +1,8 @@
+matplotlib==3.3.3
+nptyping==1.4.1
+numpy==1.19.5
+opencv-python==4.5.1.48
+Pillow==8.1.0
+scipy==1.6.1
+tensorboard==2.4.1
+tensorflow-gpu==2.4.1
