@@ -50,4 +50,5 @@ def get_model():
 
     model = Model(inputs=input_layer, outputs=[out_pred, out_optf], name='autoencoder')
     model.summary()
-    plot_model(model, show_shapes=True, show_layer_names=False)
+    # plot_model(model, show_shapes=True, show_layer_names=False)
+    return model
