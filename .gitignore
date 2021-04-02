@@ -1,1 +1,5 @@
 dataset
+training_images
+pretrained
+logs
+__pycache__
