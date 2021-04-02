@@ -1,3 +1,7 @@
+import numpy as np
+import os
+import matplotlib.pyplot as plt
+
 from tensorflow.keras.callbacks import Callback
 from anomaly_detector.network.data_generator import DataGenerator
 from typing import Dict
@@ -36,7 +40,7 @@ class VisualizeCallback(Callback):
             X, y = self.data_generator[index]
         else:
             X, y = self.data
-            predictions = self.model.predict(X)
+        predictions = self.model.predict(X)
         self.display_pred(epoch, predictions[0], y[0], predictions[1], y[1],
                           self.n_display_sequence)
 

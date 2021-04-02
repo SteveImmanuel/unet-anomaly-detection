@@ -1,3 +1,4 @@
+import tensorflow as tf
 from nptyping import ndarray
 from tensorflow.keras import backend as K
 
