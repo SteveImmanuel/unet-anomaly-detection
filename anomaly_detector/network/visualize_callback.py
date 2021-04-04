@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 from tensorflow.keras.callbacks import Callback
 from anomaly_detector.network.data_generator import DataGenerator
 from typing import Dict
-from nptyping import ndarray
+from nptyping import NDArray
 from anomaly_detector.config import FRAME_SIZE_MULTIPLIER
 
 
@@ -50,7 +50,7 @@ class VisualizeCallback(Callback):
     def on_train_begin(self, logs: Dict = None):
         self.__visualize(0)
 
-    def format_frames(self, frames: ndarray, frame_indexes: ndarray):
+    def format_frames(self, frames: NDArray, frame_indexes: NDArray):
         n = len(frame_indexes)
         if frames.shape[-1] == 1:
             frame_seq = frames[frame_indexes, :, :, 0]
@@ -64,8 +64,8 @@ class VisualizeCallback(Callback):
 
         return frame_seq
 
-    def display_pred(self, epoch: int, frame_predictions: ndarray, frame_ground_truth: ndarray,
-                     optf_predictions: ndarray, optf_ground_truth: ndarray, n: int):
+    def display_pred(self, epoch: int, frame_predictions: NDArray, frame_ground_truth: NDArray,
+                     optf_predictions: NDArray, optf_ground_truth: NDArray, n: int):
         height = self.dim[0]
         width = self.dim[1]
 
