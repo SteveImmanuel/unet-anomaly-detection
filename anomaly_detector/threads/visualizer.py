@@ -5,7 +5,7 @@ from tensorflow.keras.models import Model, load_model
 from anomaly_detector.network.loss_function import total_loss
 
 
-class Evaluator(Thread):
+class Visualizer(Thread):
     def __init__(self, model_output: Queue, predict_event: Event):
         Thread.__init__(self)
         # self.model = model
@@ -18,10 +18,8 @@ class Evaluator(Thread):
 
             while not (self.predict_event.is_set() and self.model_output.empty()):
                 if not self.model_output.empty():
-                    print('Evaluator: got item')
+                    print('Visualizer: got item')
                     raw_result = self.model_output.get()
-                    print(raw_result['prediction'].shape)
-                    print(raw_result['g_truth'].shape)
                     for i in range(len(raw_result)):
                         cv2.imshow('Prediction', raw_result['prediction'][i].squeeze())
                         cv2.waitKey(500)
