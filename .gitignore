@@ -3,3 +3,5 @@ training_images
 pretrained
 logs
 __pycache__
+*.mp4
+*.avi
