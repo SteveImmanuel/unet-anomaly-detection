@@ -1,14 +1,19 @@
 import cv2
+import logging
+import time
 import numpy as np
 from threading import Thread, Event
 from queue import Queue
 from collections import deque
 from typing import Tuple
 
+root_logger = logging.getLogger('Stream')
+logger = root_logger.getChild('Reader')
+
 
 class Reader(Thread):
-    def __init__(self, video_path: str, model_input: Queue, batch_size: int, seq_len: int,
-                 dim: Tuple[int, int, int], read_event: Event):
+    def __init__(self, video_path: str, model_input: Queue, batch_size: int, seq_len: int, dim: Tuple[int, int, int],
+                 read_event: Event):
         Thread.__init__(self)
         self.model_input = model_input
         self.batch_size = batch_size
@@ -16,6 +21,7 @@ class Reader(Thread):
         self.dim = dim
         self.read_event = read_event
         self.video_capturer = cv2.VideoCapture(video_path)
+        logger.info('Initialization complete')
 
     def run(self):
         try:
@@ -24,7 +30,9 @@ class Reader(Thread):
             sequence_batch = []
             target_batch = []
 
-            while success:
+            elapsed = -time.time()
+
+            while success and not self.read_event.is_set():
                 frame = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
                 frame = cv2.resize(frame, (self.dim[0], self.dim[1]))
                 frame = frame / 255.0
@@ -38,9 +46,13 @@ class Reader(Thread):
                 sequence.append(frame)
 
                 if (len(sequence_batch) == self.batch_size):
-                    print('read 1 whole batch')
                     full_sequence_batch = np.array(sequence_batch)
                     full_target_batch = np.array(target_batch)
+
+                    elapsed += time.time()
+                    logger.info(f'Preparing frame sequence took {elapsed} s')
+                    elapsed = -time.time()
+
                     self.model_input.put({'seq': full_sequence_batch, 'target': full_target_batch})
                     sequence_batch = []
                     target_batch = []
@@ -48,7 +60,8 @@ class Reader(Thread):
                 success, image = self.video_capturer.read()
 
         except Exception as e:
-            print(e)
+            logger.error(e)
         finally:
             self.video_capturer.release()
             self.read_event.set()
+            logger.info('Completed')
