@@ -1,5 +1,6 @@
 import cv2
 import logging
+import numpy as np
 from threading import Thread, Event
 from queue import Queue
 from tensorflow.keras.models import Model, load_model
@@ -25,9 +26,10 @@ class Visualizer(Thread):
                 if not self.model_output.empty():
                     logger.debug('Receive item')
                     raw_result = self.model_output.get()
-
                     for i in range(len(raw_result['prediction'])):
-                        cv2.imshow('Prediction', raw_result['prediction'][i].squeeze())
+                        combined_image = np.concatenate(
+                            (raw_result['prediction'][i], raw_result['g_truth'][i]), axis=1)
+                        cv2.imshow('Prediction', combined_image)
                         cv2.waitKey(1000 // self.fps)
         except Exception as e:
             logger.error(e)
