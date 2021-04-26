@@ -8,7 +8,7 @@ from anomaly_detector.config import SEQ_LEN, DIM
 def get_model():
     input_layer = Input(shape=(SEQ_LEN, DIM[1], DIM[0], DIM[2]), name='input_seq')
 
-    enc1 = TimeDistributed(Conv2D(32, (3, 3), strides=1, padding='same'))(input_layer)
+    enc1 = TimeDistributed(Conv2D(128, (3, 3), strides=1, padding='same'))(input_layer)
     enc1 = TimeDistributed(AveragePooling2D())(enc1)
     enc1 = BatchNormalization()(enc1)
     enc1 = LeakyReLU()(enc1)
@@ -35,13 +35,13 @@ def get_model():
     dec_optf = LeakyReLU()(dec_optf)
 
     dec_pred = UpSampling2D()(dec_pred)
-    dec_pred = Conv2DTranspose(16, (3, 3), strides=1, padding='same')(dec_pred)
+    dec_pred = Conv2DTranspose(64, (3, 3), strides=1, padding='same')(dec_pred)
     dec_pred = BatchNormalization()(dec_pred)
     dec_pred = LeakyReLU()(dec_pred)
 
     skip_con = Concatenate(axis=-1)([dec_optf, enc1[:, -1, :, :]])
     dec_optf = UpSampling2D()(skip_con)
-    dec_optf = Conv2DTranspose(16, (3, 3), strides=1, padding='same')(dec_optf)
+    dec_optf = Conv2DTranspose(64, (3, 3), strides=1, padding='same')(dec_optf)
     dec_optf = BatchNormalization()(dec_optf)
     dec_optf = LeakyReLU()(dec_optf)
 
