@@ -28,7 +28,6 @@ class Predictor(Thread):
 
         try:
             while not (self.read_event.is_set() and self.model_input.empty()):
-                # while not self.read_event.is_set():
                 if not self.model_input.empty():
                     x = self.model_input.get()
                     y = self.model.predict(x['seq'])

@@ -1,11 +1,12 @@
 import os
-
+from typing import List
+from anomaly_detector.network.data_generator import DataGenerator
 from anomaly_detector.network.visualize_callback import VisualizeCallback
 from anomaly_detector.config import MODEL_NAME, DATASET, CHECKPOINT_PERIOD, UPDATE_FREQ, STOP_PATIENCE, REDUCE_PATIENCE, DISPLAY_WHILE_TRAINING, OUTPUT_TRAINING_IMAGES
 from tensorflow.keras.callbacks import TensorBoard, ModelCheckpoint, EarlyStopping, ReduceLROnPlateau, Callback
 
 
-def get_all_callbacks(val_dataset):
+def get_all_callbacks(val_dataset: DataGenerator) -> List[Callback]:
     tensorboard_cb = TensorBoard(
         log_dir=os.path.join('logs', MODEL_NAME),
         update_freq=UPDATE_FREQ,

@@ -1,11 +1,11 @@
 import math
 import shutil
 import os
-
+from typing import List
 from anomaly_detector.network.data_generator import DataGenerator
 
 
-def split_test(test_path, n, **kwargs):
+def split_test(test_path: str, n: int, **kwargs) -> None:
     all_videos = [
         video for video in next(os.walk(test_path))[1]
         if not (video.endswith('_optf') or video.startswith('Frames'))
@@ -20,7 +20,7 @@ def split_test(test_path, n, **kwargs):
             shutil.move(f'{test_path}/{video}_optf', f'{test_path}/Test{i}/{video}_optf')
 
 
-def get_all_test(test_path, **kwargs):
+def get_all_test(test_path: str, **kwargs) -> List[DataGenerator]:
     generators = []
     all_test = next(os.walk(test_path))[1]
 
