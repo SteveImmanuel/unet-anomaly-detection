@@ -1,7 +1,14 @@
 dataset
 training_images
-pretrained
 logs
 __pycache__
 *.mp4
 *.avi
+test.py
+thread.py
+video.py
+pretrained/*
+!pretrained/*_final_model
+pretrained/*_final_model/*
+!pretrained/*_final_model/test_config.py
+!*.gitkeep
