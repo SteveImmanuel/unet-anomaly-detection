@@ -6,7 +6,6 @@ from queue import Queue
 from typing import List, Tuple
 from tensorflow.keras.models import Model
 from anomaly_detector.utils.evaluation import locate_anomaly, calculate_loss
-from anomaly_detector.config import DIM, POOL_SIZE, SMOOTH_STRENGTH
 
 root_logger = logging.getLogger('Stream')
 logger = root_logger.getChild('Predictor')
@@ -24,8 +23,11 @@ class Predictor(Thread):
         self.model = model
         logger.info('Initialization complete')
 
-    def set_normalization_param(self, param: Tuple[float, float]):
-        self.normalization_param = param
+    def set_test_config(self, normalization_param: Tuple[float, float], smooth_strength: float,
+                        pool_size: Tuple[int, int]):
+        self.normalization_param = normalization_param
+        self.smooth_strength = smooth_strength
+        self.pool_size = pool_size
 
     def run(self):
         elapsed = -time.time()
@@ -43,8 +45,9 @@ class Predictor(Thread):
                                                         x['target'],
                                                         min_loss=self.normalization_param[0],
                                                         max_loss=self.normalization_param[1],
-                                                        smooth_strength=SMOOTH_STRENGTH)
-                    error_map = locate_anomaly(y, x['target'], raw_losses, losses, POOL_SIZE, 0.55)
+                                                        smooth_strength=self.smooth_strength)
+                    error_map = locate_anomaly(y, x['target'], raw_losses, losses, self.pool_size,
+                                               0.6)
                     logger.debug(error_map.shape)
 
                     self.model_output.put({
