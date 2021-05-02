@@ -12,7 +12,7 @@ logger = root_logger.getChild('Reader')
 
 
 class Reader(Thread):
-    def __init__(self, video_path: str, model_input: Queue, batch_size: int, seq_len: int, dim: Tuple[int, int, int],
+    def __init__(self, model_input: Queue, batch_size: int, seq_len: int, dim: Tuple[int, int, int],
                  read_event: Event):
         Thread.__init__(self)
         self.model_input = model_input
@@ -20,8 +20,10 @@ class Reader(Thread):
         self.seq_len = seq_len
         self.dim = dim
         self.read_event = read_event
-        self.video_capturer = cv2.VideoCapture(video_path)
         logger.info('Initialization complete')
+
+    def set_video(self, video_path: str):
+        self.video_capturer = cv2.VideoCapture(video_path)
 
     def run(self):
         try:
