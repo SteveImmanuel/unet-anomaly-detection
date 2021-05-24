@@ -38,7 +38,7 @@ class Predictor(Thread):
                     x = self.model_input.get()
                     y = self.model.predict(x['seq'])
                     elapsed += time.time()
-                    logger.info(f'Predicting frames took {elapsed} s')
+                    logger.info(f'Predicting frames took {elapsed:.4f} s')
 
                     raw_losses, losses = calculate_loss(self.error_patcher,
                                                         y,

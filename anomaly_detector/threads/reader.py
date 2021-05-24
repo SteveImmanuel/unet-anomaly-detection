@@ -52,7 +52,7 @@ class Reader(Thread):
                     full_target_batch = np.array(target_batch)
 
                     elapsed += time.time()
-                    logger.info(f'Preparing frame sequence took {elapsed} s')
+                    logger.info(f'Preparing frame sequence took {elapsed:.4f} s')
                     elapsed = -time.time()
 
                     self.model_input.put({'seq': full_sequence_batch, 'target': full_target_batch})
