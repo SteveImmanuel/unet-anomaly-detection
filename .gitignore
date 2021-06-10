@@ -1,12 +1,13 @@
-dataset
-training_images
-logs
 __pycache__
 *.mp4
 *.avi
 test.py
 thread.py
 video.py
+deprecated
+dataset/*
+logs/*
+training_images/*
 pretrained/*
 !pretrained/*_final_model
 pretrained/*_final_model/*
