@@ -2,16 +2,16 @@
 
 # os.environ['TF_CPP_MIN_LOG_LEVEL'] = '1'
 
-import time
 import logging
 from tensorflow.keras.models import load_model, Model
 from queue import Queue
 from threading import Event
 
-from anomaly_detector.config import DIM, BATCH_SIZE, SEQ_LEN, TRAIN_PATH, VALIDATION_PATH, TEST_PATH, LEARNING_RATE, EPSILON, EPOCHS
+from anomaly_detector.config import DIM, BATCH_SIZE, SEQ_LEN
 from anomaly_detector.threads import Predictor, Reader, Visualizer
 from anomaly_detector.network.loss_function import total_loss
 from anomaly_detector.utils.evaluation import get_error_patcher
+
 from pretrained.ped1_final_model import test_config as test_config_1
 from pretrained.ped2_final_model import test_config as test_config_2
 

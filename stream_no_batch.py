@@ -10,7 +10,7 @@ from numpy.core.numeric import full
 from tensorflow.keras.models import load_model, Model
 from collections import deque
 
-from anomaly_detector.config import DIM, BATCH_SIZE, SEQ_LEN
+from anomaly_detector.config import DIM, SEQ_LEN
 from anomaly_detector.network.loss_function import total_loss
 from anomaly_detector.utils.evaluation import get_error_patcher, locate_anomaly, calculate_loss
 
