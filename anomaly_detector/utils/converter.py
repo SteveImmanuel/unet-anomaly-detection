@@ -1,8 +1,9 @@
+from typing import Mapping
 import cv2
 import os
 
 
-def frames_to_video(root_path='.'):
+def video_to_frames(root_path='.'):
     allowed_ext = ['.avi', '.mp4']
 
     all_videos = [
@@ -13,16 +14,21 @@ def frames_to_video(root_path='.'):
     for video in all_videos:
         print('Processing', video)
 
-        vid_cap = cv2.VideoCapture(video)
+        vid_cap = cv2.VideoCapture(f'{root_path}/{video}')
+        out_dir = f'{root_path}/{os.path.splitext(video)[0]}'
+        os.makedirs(out_dir, exist_ok=True)
+
         count = 1
         success, image = vid_cap.read()
+        print(success, image.shape)
         while (success):
-            cv2.imwrite(f'{root_path}/{directory}/{count}.jpg', image)
+            print(f'{root_path}/{video}/{count:03}.jpg')
+            cv2.imwrite(f'{out_dir}/{count:03}.jpg', image)
             success, image = vid_cap.read()
             count += 1
 
 
-def video_to_frames(root_path='.'):
+def frames_to_video(root_path='.'):
     allowed_ext = ['.tif', '.jpg', '.jpeg', '.png']
 
     all_videos = [video for video in next(os.walk(root_path))][1]
