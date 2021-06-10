@@ -1,18 +1,18 @@
 #Model configuration
 DIM = (160, 120, 1)
 SEQ_LEN = 5
-BATCH_SIZE = 32
-MODEL_NAME = 'ped1_single_unet_2scale_more_param'
+BATCH_SIZE = 16
+MODEL_NAME = 'ped2_final_model'
 
 #Dataset configuration
-DATASET = 'ped1'
-TRAIN_PATH = 'dataset/ped1/Train'
-VALIDATION_PATH = 'dataset/ped1/Validation'
-TEST_PATH = 'dataset/ped1/Test'
+DATASET = 'ped2'
+TRAIN_PATH = 'dataset/ped2/Train'
+VALIDATION_PATH = 'dataset/ped2/Validation'
+TEST_PATH = 'dataset/ped2/Test'
 
 #Callback configuration
 UPDATE_FREQ = 50
-CHECKPOINT_PERIOD = 3
+CHECKPOINT_PERIOD = 10
 STOP_PATIENCE = 10
 REDUCE_PATIENCE = 4
 DISPLAY_WHILE_TRAINING = False

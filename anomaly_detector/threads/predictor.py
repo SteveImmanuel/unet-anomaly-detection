@@ -1,9 +1,8 @@
-import cv2
 import time
 import logging
 from threading import Thread, Event
 from queue import Queue
-from typing import List, Tuple
+from typing import Tuple
 from tensorflow.keras.models import Model
 from anomaly_detector.utils.evaluation import locate_anomaly, calculate_loss
 

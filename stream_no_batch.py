@@ -6,7 +6,6 @@ import time
 import logging
 import cv2
 import numpy as np
-from numpy.core.numeric import full
 from tensorflow.keras.models import load_model, Model
 from collections import deque
 
@@ -70,7 +69,7 @@ try:
             frame = frame / 255.0
             frame = np.expand_dims(frame, axis=frame.ndim)
 
-            if (len(sequence) == SEQ_LEN):
+            if len(sequence) == SEQ_LEN:
                 full_seq = np.array(sequence)
                 full_seq = np.expand_dims(full_seq, axis=0)
                 target_batch = np.expand_dims(frame, axis=0)
